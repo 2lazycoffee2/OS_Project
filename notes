@@ -1,0 +1,56 @@
+#### PRISE DE NOTES SUR DE DÉVELOPPEMENT D'OS : ####
+
+
+///		LITTLEOSBOOK :		\\\
+
+Livre issue d'un manque de pratique chez les auteurs. Produit dans le cadre de cours avancé à l'institut royal de technologie Stockholm.
+/!\ À garder en tête que les corrections du livre date d'il y'a environ 10 ans (année de prise de notes : 2025) donc, toujours faire des recherches lorsqu'il y'a blocage.
+-> L'OS sera dev en C. 
+-> L'assembleur utilisé sera du NASM (netwide assembler): utilisé pour les archi x86. Portable 
+
+
+- le __attribut__((packed)) permet de ne pas avoir de padding dans nos structures. Exemple :
+
+struct MaStructure {			| var : 	| taille : | adresse en octets :	 |
+	int a; // fait 1 octet		|a		| 1o	   | 0x00	
+	char b;// fait 4 octer 		|padding	| 3o	   | 0x01 -> 0x03
+}					|b		| 4o	   | 0x04 -> 0x07
+
+En effet, on souhaite avoir une gestion totale de la mémomire.
+
+
+Boschs est un émulateur d'archi x86. Nous utiliserons unn émulateur, il n'est pas sûre que notre OS puisse tourner sur une vraie machine.
+
+
+#### BOOTING : ####
+
+-> consiste à transferer le ctrl de petits programmes le long d'une chaine. Chaque noeud de chaine est plus puissant que le précédent.
+le dernier programme est celui du système d'exploitation.
+
+
+#### BIOS : ####
+
+BIOS : Basic Input Output System : petit programme stoqué dans une mémoire sur la carte mère 
+son rôle original est de d'exporter des fonctions de libs pour affficher sur l'écran, lecture du clavier... Mais ojd, ces fonctions dans les OS modernes ne sont plus utilisés. On utilise ojd des drivers qui intéragissent directment avec le matériel.
+
+#### BOOTLOADER : ####
+GRUB : GRand Unified Bootload
+ Le bios passe le relais au programme nommé bootloader, son rôle : nous donner le contrôle.
+
+
+
+En raison des compatibilités le bootloader est coupé en deux : 
+-> transférer le contrôle à la deuxième partie.
+-> transférer le contrôle à L'OS
+
+
+ELF : 	executable and linkable format : binaire std utilisé pour les fichiers UNIX.
+
+#### OS : ####
+
+DONC GRUB transfert le ctrl à l'OS  en sautant à une case mémoire. Avant le saut, grub cherche un "Magic Number" pour s'assurer que l'on saute bien à l'adresse de l'OS et pas autre chose.
+Ce nombre magique est une spécificité de ce que l'on appelle, le multiboot. Un fois que GRUB fait le saut, l'OS a le contrôle total.
+
+#### Hello CafeBabe ? ####
+
+
