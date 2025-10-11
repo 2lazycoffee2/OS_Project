@@ -53,4 +53,5 @@ Ce nombre magique est une spécificité de ce que l'on appelle, le multiboot. Un
 
 #### Hello CafeBabe ? ####
 
-
+Le livre nous explique que l'on va essayer de développer le plus petit OS possible que l'on pourra utiliser avec Grub.
+Tout ce qu'il fera tout d'abord c'est écrire 0xCAFEBABE dans le registre "eax". Ce n'est qu'un début. 
