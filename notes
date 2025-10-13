@@ -3,6 +3,9 @@
 
 ///		LITTLEOSBOOK :		\\\
 
+
+link : https://littleosbook.github.io/
+
 Livre issue d'un manque de pratique chez les auteurs. Produit dans le cadre de cours avancé à l'institut royal de technologie Stockholm.
 /!\ À garder en tête que les corrections du livre date d'il y'a environ 10 ans (année de prise de notes : 2025) donc, toujours faire des recherches lorsqu'il y'a blocage.
 -> L'OS sera dev en C. 
@@ -55,3 +58,14 @@ Ce nombre magique est une spécificité de ce que l'on appelle, le multiboot. Un
 
 Le livre nous explique que l'on va essayer de développer le plus petit OS possible que l'on pourra utiliser avec Grub.
 Tout ce qu'il fera tout d'abord c'est écrire 0xCAFEBABE dans le registre "eax". Ce n'est qu'un début. 
+
+
+#### Linking the Kernel ####
+
+Le but est  de relié le noyau au loader 
+Grub doit charger le noyau en mémoire à une adresse plus grande que 0x00100000 (16^5 = 1048576) tout ce qui sera en dessous sera utilisé par grub, le bios et les mémoires de mappint E/S.
+on va faire alors un gnu loader dans un fichier appelé link.ld,  on crée un exec nommé kernel.elf : 
+
+ls -T link.ld -melf_i386 loader.o -o kernel.elf
+
+
