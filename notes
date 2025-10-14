@@ -69,3 +69,5 @@ on va faire alors un gnu loader dans un fichier appelé link.ld,  on crée un ex
 ls -T link.ld -melf_i386 loader.o -o kernel.elf
 
 
+grub 0.97 :  ftp://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
+
