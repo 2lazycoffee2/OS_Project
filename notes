@@ -68,6 +68,77 @@ on va faire alors un gnu loader dans un fichier appelé link.ld,  on crée un ex
 
 ls -T link.ld -melf_i386 loader.o -o kernel.elf
 
-
+on utilisera cette version de grub : 
 grub 0.97 :  ftp://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
+
+enft, on va utiliser : GRUB Legacy stage2_eltorito bootloader.
+À partir des fichiers développé précédement, on va créer une sorte 
+
+le bios lit le stage2torito qui contient le code pour démarrer grub qui chargera le kernel dans la RAM.
+
+#### Building ISO Image #### 
+
+
+
+gpt : 
+______________________________________________________
+BIOS						      |
+  ↓						      |
+stage2_eltorito (GRUB)				      |
+  ↓						      |
+menu.lst (optionnel, pour lui dire quoi charger)      |
+  ↓						      |
+ton kernel (ex: kernel.elf)			      |
+______________________________________________________|
+ 
+En gros, stage2eltorito sert à booter mon kernel depuis une iso sans avoir à créer un bootloader 
+
+Au  lieu d'une image iso, on peut utiliser une image "floppy" : fichier sur un disque dur contenant une copie exacte de ce que l'on pourrait trouver sur une vraie disquette.
+
+
+on va créer une image iso du kernel avec le program "genisoimage"
+
+
+Le menu.lst : 
+
+default 0 c'est pour dire à GRUB qu'il choisira la premère entrée
+timeout 0 c'est pour lui dire boot directement sans afficher de menu après on peut changer la valeurs qui est en seconde.
+root (cd) indique à grub que le kernel est sur le CD.
+
+
+arborescence :
+iso
+    |-- boot
+      |-- grub
+      | |-- menu.lst
+      | |-- stage2_eltorito
+      |-- kernel.elf
+
+
+pour générer l'iso : 
+ 
+    genisoimage -R                              \
+                -b boot/grub/stage2_eltorito    \
+                -no-emul-boot                   \
+                -boot-load-size 4               \
+                -A os                           \
+                -input-charset utf8             \
+                -quiet                          \
+                -boot-info-table                \
+                -o os.iso                       \
+                iso
+
+
+explication de la commande : 
+genisoimage : outil pour générer une image ISO bootable
+-R              : active Rock Ridge (noms longs, permissions UNIX)
+-b              : chemin du bootloader (ici stage2_eltorito)
+-no-emul-boot   : pas d’émulation de disquette
+-boot-load-size 4 : charge 4 secteurs au boot
+-A              : nom/app ID de l’ISO
+-input-charset utf8 : encodage noms fichiers
+-quiet          : mode silencieux
+-boot-info-table: ajoute table d’infos pour GRUB
+-o os.iso       : nom du fichier ISO de sortie
+iso             : dossier source contenant GRUB + kernel
 
