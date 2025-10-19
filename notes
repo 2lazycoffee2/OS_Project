@@ -162,3 +162,6 @@ canal ATA0 provient de la norme IDE/ATA (norme de périphérique de stockage à 
 
 on lance l'émulation avec     bochs -f bochsrc.txt -q
 le -f pour dire d'utiliser le ficher de config et -q pour skipper le menu interactif
+
+pour utiliser qemu : qemu-system-i386 -cdrom LZos.iso -boot d -m 32
+
