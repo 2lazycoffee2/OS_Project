@@ -142,3 +142,23 @@ genisoimage : outil pour générer une image ISO bootable
 -o os.iso       : nom du fichier ISO de sortie
 iso             : dossier source contenant GRUB + kernel
 
+maintenant,  LZoS.iso contient l'executable du kernel, le bootloader grub et les fichiers de configs.
+
+
+Fichier de configuration Bochs :
+
+
+    megs:            32						# Taille de la ram en Mo
+    display_library: sdl					# Usage de sdl pour la fenêtre graphique
+    romimage:        file=/usr/share/bochs/BIOS-bochs-latest	# Firmware émulé chargé au tout début du boot
+    vgaromimage:     file=/usr/share/bochs/VGABIOS-lgpl-latest	# Chemin vers la ROM VGA pour afficher des choses à l'écran
+    ata0-master:     type=cdrom, path=os.iso, status=inserted	# Montage de la cdrom. Bochs bootera sur le canal ATA0 maître.
+    boot:            cdrom					# Booter depuis la cd rom
+    log:             bochslog.txt				# Fichier journal  
+    clock:           sync=realtime, time0=local			# Sync de l'horloge avec celle de ma machine et prend la date local comme point de départ.
+    cpu:             count=1, ips=1000000			# Nb de cpu émulés, nb d'instructions par seconde simulés (vitesse de l'émulation).
+
+canal ATA0 provient de la norme IDE/ATA (norme de périphérique de stockage à la carte mère d'un PC. Norme révolue).
+
+on lance l'émulation avec     bochs -f bochsrc.txt -q
+le -f pour dire d'utiliser le ficher de config et -q pour skipper le menu interactif

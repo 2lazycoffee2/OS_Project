@@ -13,12 +13,12 @@ SECTIONS{
 		*(.rodata*)	/*toute les sections de données de tous les fichiers en "lecture seule" */
 	}
 	
-	.data ALIGN (0x1000):	/*alignement de 4Ko à nouveau*/
+	.data ALIGN(0x1000):	/*alignement de 4Ko à nouveau*/
 	{
 		*(.data)	/*toute les sections de donées depuis tous les fichiers.*/
 	}
 
-	.bss ALIGN (0x1000):	/*alignement de 4Ko*/
+	.bss ALIGN(0x1000):	/*alignement de 4Ko*/
 	{
 		*(COMMON)	/*toutes les sections communes depuis tous les fichiers */
 		*(.bss)		/*tout les sections bss de tous les fichiers (bss = block starting sympbol)*/

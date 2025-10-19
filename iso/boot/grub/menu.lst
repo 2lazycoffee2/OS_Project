@@ -4,4 +4,4 @@ timeout=10
 
 title LzOS
 root (cd)
-kernel boot/kernel.elf
+kernel /boot/kernel.elf
