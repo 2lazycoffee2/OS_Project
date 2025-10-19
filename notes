@@ -139,7 +139,7 @@ genisoimage : outil pour générer une image ISO bootable
 -input-charset utf8 : encodage noms fichiers
 -quiet          : mode silencieux
 -boot-info-table: ajoute table d’infos pour GRUB
--o os.iso       : nom du fichier ISO de sortie
+-o LZos.iso       : nom du fichier ISO de sortie
 iso             : dossier source contenant GRUB + kernel
 
 maintenant,  LZoS.iso contient l'executable du kernel, le bootloader grub et les fichiers de configs.
@@ -149,9 +149,9 @@ Fichier de configuration Bochs :
 
 
     megs:            32						# Taille de la ram en Mo
-    display_library: sdl					# Usage de sdl pour la fenêtre graphique
-    romimage:        file=/usr/share/bochs/BIOS-bochs-latest	# Firmware émulé chargé au tout début du boot
-    vgaromimage:     file=/usr/share/bochs/VGABIOS-lgpl-latest	# Chemin vers la ROM VGA pour afficher des choses à l'écran
+    display_library: sdl2					# Usage de sdl pour la fenêtre graphique
+    romimage:        file=/usr/local/share/bochs/BIOS-bochs-latest	# Firmware émulé chargé au tout début du boot
+    vgaromimage:     file=/usr/local/share/bochs/VGABIOS-lgpl-latest	# Chemin vers la ROM VGA pour afficher des choses à l'écran
     ata0-master:     type=cdrom, path=os.iso, status=inserted	# Montage de la cdrom. Bochs bootera sur le canal ATA0 maître.
     boot:            cdrom					# Booter depuis la cd rom
     log:             bochslog.txt				# Fichier journal  
@@ -165,3 +165,8 @@ le -f pour dire d'utiliser le ficher de config et -q pour skipper le menu intera
 
 pour utiliser qemu : qemu-system-i386 -cdrom LZos.iso -boot d -m 32
 
+Bon, j'ai quand même dû recompiler bochs et utiliser une autre rom graphique pour le vga. Le dev D'OS ce n'est pas facile...
+
+#### GETTING TO C ####
+
+Ici, nous allons voir comment utiliser le C dans notre projet pour éviter de tout faire en assembleur pur.
