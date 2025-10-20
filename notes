@@ -170,3 +170,19 @@ Bon, j'ai quand même dû recompiler bochs et utiliser une autre rom graphique p
 #### GETTING TO C ####
 
 Ici, nous allons voir comment utiliser le C dans notre projet pour éviter de tout faire en assembleur pur.
+
+#### SETTING UP A STACK ####
+
+on garrde en tête que la stack en archi x86 se dirige vers ses plus petites adresses. Elle grandit vers le bas 
+
+Rappel  : 
+En little-endian → stocké en mémoire comme 78 56 34 12 (octet le moins significatif en premier).
+
+En big-endian → 12 34 56 78 (octet le plus significatif en premier).
+L'archi x86 est du little indian.
+
+le Stack Pointer sera le registre "esp", comment en armv4 (ou dans mon émulateur) il pointe vers la prochain push qui va se produire.
+esp pointe toujours sur le sommet de la pile.
+
+en Nasm, resb sert à reserver N octets dans la section actuelle.
+réservation donc de 4096o pour notre stack.
