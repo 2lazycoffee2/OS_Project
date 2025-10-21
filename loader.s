@@ -10,12 +10,15 @@ align 4
 	dd FLAGS
 	dd CHECKSUM
 
-section .bss:
-	align 4
-	kernel_stack:
-		resb KERNEL_STACK_SIZE
-		mov esp, kernal_stack + KERNEL_STACK_SIZE
+
 loader:
 	mov eax, 0xCAFEBABE
+        mov esp, kernel_stack + KERNEL_STACK_SIZE
+
 .loop:
 	jmp .loop
+section .bss
+        align 4
+        kernel_stack:
+                resb KERNEL_STACK_SIZE
+

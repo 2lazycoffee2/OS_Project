@@ -186,3 +186,4 @@ esp pointe toujours sur le sommet de la pile.
 
 en Nasm, resb sert à reserver N octets dans la section actuelle.
 réservation donc de 4096o pour notre stack.
+/!\ attention, la section .bss ne sert pas pour les opérations
