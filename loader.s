@@ -14,7 +14,9 @@ align 4
 loader:
 	mov eax, 0xCAFEBABE
         mov esp, kernel_stack + KERNEL_STACK_SIZE
-
+	extern kmain
+	
+	call kmain
 .loop:
 	jmp .loop
 section .bss

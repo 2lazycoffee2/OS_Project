@@ -187,3 +187,99 @@ esp pointe toujours sur le sommet de la pile.
 en Nasm, resb sert à reserver N octets dans la section actuelle.
 réservation donc de 4096o pour notre stack.
 /!\ attention, la section .bss ne sert pas pour les opérations
+
+
+--## Visualisation des registres depuis bochs : 
+
+
+eax: 0xcafebabe -889275714	// eax : registre accumulateur. Instruction dans le loader.s, eax permet les retours de fonctions/opérations.
+ebx: 0x0002cd80 183680		// ebx : registre général. GRUB y met adresse multiboot info
+ecx: 0x00000001 1		// ecx : registre compteur de boucle
+edx: 0x00000000 0		// edx : registre de données souvent utilisé pour lees entrées et sorties
+esp: 0x00102000 1056768		// esp : registre de pointeur de pile initialisé comme on le voulait dans le loader, pointe sur le haut de la pile
+ebp: 0x00067ee0 425696		// ebp : registre Base Ppointer, pour se déplacer dans la pile
+esi: 0x0002cefa 184058		// esi : registre Source Index copie mémoires
+edi: 0x0002cefb 184059		// edi : registre de destination index
+eip: 0x00100016			// execution mon kernel à partir de  0x1000000
+
+
+
+# dd en NASM :
+
+déclare des données directement dans l'assembleur 
+dd -> 4o : data double-word
+db -> 1o : data byte
+dw -> 2o : data word
+dq -> 8o : data quad-word
+GPT schéma :
+
++-----------------------+  ← 1MB (0x00100000)
+| Multiboot Header      |  ←    dd MAGIC_NUMBER
+| (MAGIC, FLAGS, CHKSUM)|  ←    dd FLAGS
+|                       |  ←    dd CHECKSUM
++-----------------------+
+| Code (loader)         |
+| .text section         |
++-----------------------+
+| .rodata / .data       |
++-----------------------+
+| .bss (stack)          |
+| kernel_stack ------>  |  ← ESP se met ici !
++-----------------------+
+
+#### CALLING C CODE FROM ASSEMBLY ####
+
+Le but affiché : appeller une fonction C depuis l'assembleur. Il existe différente convention pour le faire. Nous utiliserons la méthode du livre qui est
+"The cdecl calling convention"
+En voici un exemple fourni par le livre :
+
+  /* The C function */
+    int sum_of_three(int arg1, int arg2, int arg3)
+    {
+        return arg1 + arg2 + arg3;
+    }
+
+; The assembly code
+    external sum_of_three   ; the function sum_of_three is defined elsewhere
+
+    push dword 3            ; arg3
+    push dword 2            ; arg2
+    push dword 1            ; arg1
+    call sum_of_three       ; call the function, the result will be in eax 
+Cette convntion est utilisé avec GCC
+
+la valeur de retour de la fonction est placée dans le registre eax.
+
+#### PACKING STRUCTS ####
+
+Les structures seront accompagnés d'un __attribute__((packed)); afin d'éviter que le compilateur n'ajoute un padding (cf première partie de la prise de note).
+Parce qu'en fait, le matériel s'attend à recevoir ce genre d'organisation :
+Bit:     | 31     24 | 23          8 | 7     0 |
+Content: | index     | address       | config  |
+
+dans le code : 
+struct example {
+    unsigned char config;   // bits 0 - 7
+    unsigned short address; // bits 8 - 23 (2 octets)
+    unsigned char index;    // bits 24 - 31
+} __attribute__((packed)); // permet de faire suivre de manière consécutive les valeurs selon leurs taille (leurs position sur un mot de 32 bits) 
+
+#### COMPILING C CODE ####
+
+/!\ ATTENTION la confusion, lorsque je fais un external kmain/ call kmain c'est pour dire eh va utiliser le SYMBOLE kmain et non le fichier continer la fonction kmain, pour utiliser une autre fonctino on ferai external f1 call f1.
+extern -> nasm/yasm
+external -> nasm
+
+les flags de compilation C utilisé : 
+
+-m32                   # Génère du code 32 bits (compatible avec GRUB)
+-nostdlib              # Ne pas utiliser la libc (printf, malloc…)
+-nostdinc              # Ne pas inclure les headers système (stdio.h…)
+-fno-builtin           # Désactive les optimisations automatiques (ex : builtin memcpy)
+-fno-stack-protector   # Désactive les protections de pile (pas de runtime pour gérer ça)
+-nostartfiles          # Ne pas utiliser le code de démarrage standard (crt0.o)
+-nodefaultlibs         # Ne lie aucune lib par défaut (libc, libm…)
+
+-Wall     # Active tous les avertissements "importants"
+-Wextra   # Active encore + d’avertissements
+-Werror   # Traite chaque avertissement comme une erreur → compilation bloquée
