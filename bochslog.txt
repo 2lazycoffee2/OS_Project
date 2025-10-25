@@ -34,7 +34,7 @@
 00000000000i[IMG   ] Disk image modules
 00000000000i[IMG   ]   flat concat sparse dll growing undoable volatile vmware3
 00000000000i[IMG   ]   vmware4 vbox vpc vvfat
-00000000000i[MEM0  ] allocated memory at 0x7f8e21190010. after alignment, vector=0x7f8e21191000
+00000000000i[MEM0  ] allocated memory at 0x715fc8bdd010. after alignment, vector=0x715fc8bde000
 00000000000i[MEM0  ] 32,00MB
 00000000000i[MEM0  ] mem block size = 0x00020000, blocks=256
 00000000000i[MEM0  ] rom at 0xfffe0000/131072 ('/usr/local/share/bochs/BIOS-bochs-latest')
@@ -45,7 +45,7 @@
 00000000000i[DEV   ] PIIX3 PCI-to-ISA bridge present at device 1, function 0
 00000000000i[PLUGIN] init_dev of 'cmos' plugin device by virtual method
 00000000000i[CMOS  ] Using local time for initial clock
-00000000000i[CMOS  ] Setting initial clock to: Mon Oct 20 14:30:00 2025 (time0=1760963400)
+00000000000i[CMOS  ] Setting initial clock to: Wed Oct 22 15:10:37 2025 (time0=1761138637)
 00000000000i[PLUGIN] init_dev of 'dma' plugin device by virtual method
 00000000000i[DMA   ] channel 4 used by cascade
 00000000000i[PLUGIN] init_dev of 'pic' plugin device by virtual method
@@ -211,9 +211,30 @@
 00001506522i[BXVGA ] VBE known Display Interface b0c0
 00001506554i[BXVGA ] VBE known Display Interface b0c5
 00001509197i[VBIOS ] VBE Bios $Id: vbe.c 292 2021-06-03 12:24:22Z vruppert $
-00005163515i[BIOS  ] IDE time out
-00228123714i[BIOS  ] Booting from 07c0:0000
-00228219608i[BIOS  ] int13_harddisk: function 41, unmapped device for ELDL=80
-00228223279i[BIOS  ] int13_harddisk: function 08, unmapped device for ELDL=80
-00228226950i[BIOS  ] *** int 15h function AX=00c0, BX=0000 not yet supported!
-00435535305i[      ] Ctrl-C detected in signal handler.
+00005163446i[BIOS  ] IDE time out
+00424730785i[BIOS  ] Booting from 07c0:0000
+00424826679i[BIOS  ] int13_harddisk: function 41, unmapped device for ELDL=80
+00424830350i[BIOS  ] int13_harddisk: function 08, unmapped device for ELDL=80
+00424834021i[BIOS  ] *** int 15h function AX=00c0, BX=0000 not yet supported!
+00886127000i[      ] Ctrl-C detected in signal handler.
+00886127000i[      ] Ctrl-C detected in signal handler.
+00886127000i[      ] dbg: Quit
+00886127000i[CPU0  ] CPU is in protected mode (active)
+00886127000i[CPU0  ] CS.mode = 32 bit
+00886127000i[CPU0  ] SS.mode = 32 bit
+00886127000i[CPU0  ] EFER   = 0x00000000
+00886127000i[CPU0  ] | EAX=cafebabe  EBX=0002cd80  ECX=00000001  EDX=00000000
+00886127000i[CPU0  ] | ESP=00102000  EBP=00067ee0  ESI=0002cefa  EDI=0002cefb
+00886127000i[CPU0  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf ZF af PF cf
+00886127000i[CPU0  ] | SEG sltr(index|ti|rpl)     base    limit G D
+00886127000i[CPU0  ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
+00886127000i[CPU0  ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00886127000i[CPU0  ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00886127000i[CPU0  ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00886127000i[CPU0  ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00886127000i[CPU0  ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00886127000i[CPU0  ] | EIP=00100016 (00100016)
+00886127000i[CPU0  ] | CR0=0x60000011 CR2=0x00000000
+00886127000i[CPU0  ] | CR3=0x00000000 CR4=0x00000000
+00886127000i[CMOS  ] Last time is 1761139523 (Wed Oct 22 15:25:23 2025)
+00886127000i[SIM   ] quit_sim called with exit code 0
