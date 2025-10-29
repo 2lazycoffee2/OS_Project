@@ -1,3 +1,5 @@
+
+
 global loader
 MAGIC_NUMBER equ 0x1BADB002
 FLAGS equ 0x0
@@ -14,9 +16,25 @@ align 4
 loader:
 	mov eax, 0xCAFEBABE
         mov esp, kernel_stack + KERNEL_STACK_SIZE
-	extern kmain
-	
-	call kmain
+
+;	extern kmain
+
+;	call kmain
+
+	mov word [0x000B8000], 0x4128
+  ; Ecriture "HELLO WORLD" à l'écran
+    mov word [0x000B8000 + 0], 0x0F48    ; 'H' fg=15 blanc, bg=0 noir
+    mov word [0x000B8000 + 2], 0x0F45    ; 'E'
+    mov word [0x000B8000 + 4], 0x0F4C    ; 'L'
+    mov word [0x000B8000 + 6], 0x0F4C    ; 'L'
+    mov word [0x000B8000 + 8], 0x0F4F    ; 'O'
+    mov word [0x000B8000 + 10], 0x0F20   ; ' ' (espace)
+    mov word [0x000B8000 + 12], 0x0F57   ; 'W'
+    mov word [0x000B8000 + 14], 0x0F4F   ; 'O'
+    mov word [0x000B8000 + 16], 0x0F52   ; 'R'
+    mov word [0x000B8000 + 18], 0x0F4C   ; 'L'
+    mov word [0x000B8000 + 20], 0x0F44   ; 'D'
+
 .loop:
 	jmp .loop
 section .bss

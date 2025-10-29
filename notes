@@ -283,3 +283,36 @@ les flags de compilation C utilisé :
 -Wall     # Active tous les avertissements "importants"
 -Wextra   # Active encore + d’avertissements
 -Werror   # Traite chaque avertissement comme une erreur → compilation bloquée
+
+
+#### OUTPUT ####
+
+On va enfin apprendre à écrire du texte sur l'écran et ça c'est cool.
+On va créer notre premier driver : code qui agit comme un intermédiaire entre le noyau et le matériel.
+Première partie : création du driver pour le framebuffer pour afficher du texte sur la console.
+Deuxième partie : comment créer un driver pour le port série. Bochs peut stocker une sortie depuis le port série dans un fichier.
+
+#### INTERACTING WITH THE HARDWARE ####
+
+Deux manière d'interagir avec le matériel :
+
+memory-mapped I/O
+I/O ports
+
+Tous dépend du matériel.
+
+Dans le cas où le matériel utilise la memory mapped I/O, on peut écrire dans une adresse spécifique et,, le matériel pourra maj de nouvelles données.
+exemple donné dans le livre : 0x410F dans 0x000B8000 donne la lettre "A" en blanc sur un fond noir.
+
+Dans le cas où le matériel utilise I/O ports, l'instruction out et l'instruction in en assembleur sont être utilisées pour communiquer avec le matos.
+|_> out prend deux paramètre : addr de I/O port et la data à envoyer. 
+In en prend qu'un seul : l'adresse du I/O port et retourn la donné du port.
+
+#### FRAMEBUFFER ####
+
+Le framebuffer (sous bochs je pense) aura 80 colonnes et 25 lignes. On commence de toute évidence à 0 (à-79 et 0-24)
+
+
+#### WRITING TEXT ####
+
+
