@@ -316,3 +316,20 @@ Le framebuffer (sous bochs je pense) aura 80 colonnes et 25 lignes. On commence 
 #### WRITING TEXT ####
 
 
+Exceptionnel, on peut écrire du texte directement dans la mémoire. Donc, j'ai compris le principe et, gpt m'a généré les caractères qu'il faut pour afficher un hello world et j'en suis content.
+Le mov tout seul ne fonctionne pas car on est en mode multiboot. Faut utiliser mov word mais, en hexa, voici la structuration de la donnée que l'on envoit pour afficher du texte : 
+
+Bit:     | 15 14 13 12 11 10 9 8 | 7 6 5 4 | 3 2 1 0 |
+Content: | ASCII                 | FG      | BG      |
+
+
+Voici un tableau de couleurs fourni dans le livre : 
+
+# COLOR TAB : 
+
+Color 	Value 	Color 	Value 	Color 	Value 	Color 	Value
+
+Black 	0 	Red 	    4	Dark grey 	8 	Light red 	12
+Blue 	1 	Magenta     5	Light blue 	9 	Light magenta 	13
+Green 	2 	Brown 	    6 	Light green 	10 	Light brown 	14
+Cyan 	3 	Light grey  7	Light cyan 	11 	White 		15
