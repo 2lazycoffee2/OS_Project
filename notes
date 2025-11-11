@@ -143,7 +143,7 @@ genisoimage : outil pour générer une image ISO bootable
 iso             : dossier source contenant GRUB + kernel
 
 maintenant,  LZoS.iso contient l'executable du kernel, le bootloader grub et les fichiers de configs.
-
+/!\ À NOTER QUE L'ON UTILSE LA VERSION 2.6.11 DE GRUB ET QUE LA VERSION RÉCENTE (sur ubuntu 25) NE CORRESPOND PAS AUX ATTENTES DU LIVRE. 
 
 Fichier de configuration Bochs :
 
@@ -333,3 +333,8 @@ Black 	0 	Red 	    4	Dark grey 	8 	Light red 	12
 Blue 	1 	Magenta     5	Light blue 	9 	Light magenta 	13
 Green 	2 	Brown 	    6 	Light green 	10 	Light brown 	14
 Cyan 	3 	Light grey  7	Light cyan 	11 	White 		15
+
+
+# ALTERNATIVE : 
+depuis la maj de mon OS, Bochs ne fonctionne plus comme avant donc, on lancera la simulation avec  
+qemu-system-i386 -cdrom LZos.iso -boot d -m 256M
