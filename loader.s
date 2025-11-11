@@ -21,7 +21,7 @@ loader:
 
 ;	call kmain
 
-	mov word [0x000B8000], 0x4128
+;	mov word [0x000B8000], 0x4128
   ; Ecriture "HELLO WORLD" à l'écran
     mov word [0x000B8000 + 0], 0x0F48    ; 'H' fg=15 blanc, bg=0 noir
     mov word [0x000B8000 + 2], 0x0F45    ; 'E'
@@ -34,6 +34,14 @@ loader:
     mov word [0x000B8000 + 16], 0x0F52   ; 'R'
     mov word [0x000B8000 + 18], 0x0F4C   ; 'L'
     mov word [0x000B8000 + 20], 0x0F44   ; 'D'
+
+	mov word [0xB8000 + 0xA0], 0x0F43
+        mov word [0xB8000 + 0x140], 0x0F48
+        mov word [0xB8000 + 0x1e0], 0x0F45
+        mov word [0xB8000 + 0x280], 0x0F44
+        mov word [0xB8000 + 0x320], 0x0F59
+
+    ;mov word [0xB8000 + 22], 0x0E41 ça donne un A en jaune ^^
 
 .loop:
 	jmp .loop

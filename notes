@@ -335,6 +335,23 @@ Green 	2 	Brown 	    6 	Light green 	10 	Light brown 	14
 Cyan 	3 	Light grey  7	Light cyan 	11 	White 		15
 
 
+
+# Ligne et colonne :
+Il faut savoir que l'écran de texte VGA est composés de 80 colonnes (soit 160 octets) et 25 lignes (soit 50octets).
+la mémoire est linéire : [ cellule(0,0), cellule(0,1), cellule(0,2), ..., cellule(0,79), cellule(1,0), cellule(1,1), ..., cellule(24,79) ]
+une cellule c'est 2 octets (1 pour l'ascii et 1 pour les deux couleurs)
+
+pour écrire sur la ligne 0 , on fera :
+0x0B8000 + 0x20
+
+pour écrire en colone : 0xB8000 + 0xa0 
+
+de manière générale on va faire : 
+0xB8000 +0x20(colonne*0xa0 + ligne)
+ce qui nous donne une formule générale pour écrire sur le buffer vga.
+
+
+
 # ALTERNATIVE : 
 depuis la maj de mon OS, Bochs ne fonctionne plus comme avant donc, on lancera la simulation avec  
 qemu-system-i386 -cdrom LZos.iso -boot d -m 256M
