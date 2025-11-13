@@ -25,7 +25,8 @@ LZos.iso: kernel.elf
 	            iso
 
 run: LZos.iso
-	bochs -f bochsrc.txt -q
+	qemu-system-i386 -cdrom LZos.iso -boot d -m 256M
+	#bochs -f bochsrc.txt -q
 
 %.o: %.c
 	$(CC) $(CFLAGS) $< -o $@
